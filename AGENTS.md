@@ -1,254 +1,163 @@
-# AGENTS.md
-
-Guidelines for AI agents working in this repository.
-
-## Repository Overview
-
-This repository contains **Agent Skills** for AI agents following the [Agent Skills specification](https://agentskills.io/specification.md). Skills install to `.agents/skills/` (the cross-agent standard). This repo also serves as a **Claude Code plugin marketplace** via `.claude-plugin/marketplace.json`.
+# Catch Your Breath (CYB) — kompletní kontext kampaně Nutrend 2026
 
-- **Name**: Marketing Skills
-- **GitHub**: [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills)
-- **Creator**: Corey Haines
-- **License**: MIT
+## Kdo a co
 
-## Repository Structure
+Kampaň manager je Marek Nocar, který kampaň převzal v polovině dubna 2026 od předchozího brand managera Reného. Smluvně je v Nutrendu do prosince 2026 a hodnocení jeho práce vedením proběhne dle finančních výsledků a brand image kampaně. Souběžně Marek buduje vlastní agenturu Nocar Studio jako první GEO agenturu v ČR pro generative engine optimization.
 
-```
-marketingskills/
-├── .claude-plugin/
-│   └── marketplace.json   # Claude Code plugin marketplace manifest
-├── skills/                # Agent Skills
-│   └── skill-name/
-│       └── SKILL.md       # Required skill file
-├── tools/
-│   ├── clis/              # Zero-dependency Node.js CLI tools (51 tools)
-│   ├── composio/          # Composio integration layer (quick start + toolkit mapping)
-│   ├── integrations/      # API integration guides per tool
-│   └── REGISTRY.md        # Tool index with capabilities
-├── CONTRIBUTING.md
-├── LICENSE
-└── README.md
-```
+Catch Your Breath je nová brand awareness kampaň českého výrobce sportovní výživy Nutrend, běžící od dubna do prosince 2026. Český claim používaný ve videích a captionech je "Pro každý další krok." Anglické "Catch Your Breath" zůstává jako oficiální název kampaně na všech materiálech.
 
-## Build / Lint / Test Commands
+Kampaň cílí na hobby sportovce ve věku 18 až 44 let na českém trhu. Sekundární trh je Slovensko. Zahraniční trhy (Polsko, Maďarsko, Německo, Rakousko) dostávají pouze "best of" CYB obsah, ne plnou sekvenci.
 
-**Skills** are content-only (no build step). Verify manually:
-- YAML frontmatter is valid
-- `name` field matches directory name exactly
-- `name` is 1-64 chars, lowercase alphanumeric and hyphens only
-- `description` is 1-1024 characters
+## Strategický rámec
 
-**CLI tools** (`tools/clis/*.js`) are zero-dependency Node.js scripts (Node 18+). Verify with:
-```bash
-node --check tools/clis/<name>.js   # Syntax check
-node tools/clis/<name>.js           # Show usage (no args = help)
-node tools/clis/<name>.js <cmd> --dry-run  # Preview request without sending
-```
+CYB je pozicovaná jako endurance kampaň, ne obecná performance kampaň. Klíčové je rozlišení mezi endurance (vytrvalostní sport — běh, cyklistika, triathlon, trail, kolektivní sporty) a performance (silový a explozivní výkon). CYB je výhradně endurance. Kreatin a ATP do CYB nepatří — jsou to silové produkty pro hypertrofii a explozivní sílu, na páteční schůzce se rozhoduje zda jejich potenciální zařazení neohrozí ostrost kampaně.
 
-## Agent Skills Specification
+Konkurenční pozice Nutrendu v endurance je silnější než v silovém segmentu. V silovém dominují Optimum Nutrition, MyProtein a Gymbeam. V endurance má Nutrend možnost být jedničkou v ČR. Vilgain, Gymbeam, MyProtein a Vitalvibe používají minimalistický monochromatický premium aesthetic, Nutrend má červeno-žlutou explosivní typografii která působí jako supplement z 90. let. Toto je strukturální brand problém který CYB částečně řeší vytvořením paralelního vizuálního jazyka — tmavý, atmosférický, profesionální — pro endurance submarket.
 
-Skills follow the [Agent Skills spec](https://agentskills.io/specification.md).
+Kampaň běží ve třech fázích. Fáze 1 (duben až červen) je 75 % brand emoce, 20 % edukace, 5 % produkt. Fáze 2 a 3 postupně přidávají konverzní obsah a dark posty na cold audience.
 
-### Required Frontmatter
+## CYB produkty (endurance sortiment)
 
-```yaml
----
-name: skill-name
-description: What this skill does and when to use it. Include trigger phrases.
----
-```
+Energie před výkonem: Voltage Energy Bar 65g, Gutar Energy Shot 60ml (podmínečně, čeká na potvrzení redesignu obalu), Turbo Effect Shot 25ml.
 
-### Frontmatter Field Constraints
+Energie při výkonu: Carbosnack Gel tuba 50g, Carbosnack Gel sáček 50g, Endurosnack Gel tuba 75g, Endurosnack Gel sáček 75g, Carbonex tablety.
 
-| Field         | Required | Constraints                                                      |
-|---------------|----------|------------------------------------------------------------------|
-| `name`        | Yes      | 1-64 chars, lowercase `a-z`, numbers, hyphens. Must match dir.   |
-| `description` | Yes      | 1-1024 chars. Describe what it does and when to use it.          |
-| `license`     | No       | License name (default: MIT)                                      |
-| `metadata`    | No       | Key-value pairs (author, version, etc.)                          |
+Hydratace při výkonu: Isodrinx prášek 420g (primární), Isodrinx hotový nápoj 750ml, Isodrinx Tabs 12 tablet, Isodrinx 5×35g JM.
 
-### Name Field Rules
+Minerály a podpora výkonu: Magneslife liquid 25ml, Salt Caps 120 kapslí (aktuálně dočasně vyprodány, na LP nedávat).
 
-- Lowercase letters, numbers, and hyphens only
-- Cannot start or end with hyphen
-- No consecutive hyphens (`--`)
-- Must match parent directory name exactly
+Regenerace: Regener 450g.
 
-**Valid**: `page-cro`, `email-sequence`, `ab-test-setup`
-**Invalid**: `Page-CRO`, `-page`, `page--cro`
+Dýchání a kyslík: VO2 Boost (přenos kyslíku v těle, vázán na VO2max kalkulačku na LP).
 
-### Optional Skill Directories
+Z CYB jsou explicitně vyloučeny After Training Protein a Creatine — nesedí na endurance pozici.
 
-```
-skills/skill-name/
-├── SKILL.md        # Required - main instructions (<500 lines)
-├── references/     # Optional - detailed docs loaded on demand
-├── scripts/        # Optional - executable code
-└── assets/         # Optional - templates, data files
-```
+## Landing page
 
-## Writing Style Guidelines
+URL je nutrend.cz/catch-your-breath s krátkým redirectem nutrend.cz/cyb. LP je edukační, ne konverzní. Hero sekce má tmavé pozadí s běžcem v pohybu, animaci claimu CATCH YOUR BREATH písmeno po písmenu, vlaječku a Nutrend logo.
 
-### Structure
+Statistiky v hero sekci: 30 % pokles výkonu při 5 % ztrátě tělesných tekutin (zdroj ACSM), 17 % zlepšení sacharidovou suplementací (zdroj Burke), 200-330 mOsm/kg pro vstřebávání vody (zdroj Hew-Butler). Žádné MDPI zdroje (regulatorně napadnutelné).
 
-- Keep `SKILL.md` under 500 lines (move details to `references/`)
-- Use H2 (`##`) for main sections, H3 (`###`) for subsections
-- Use bullet points and numbered lists liberally
-- Short paragraphs (2-4 sentences max)
+Třídílný storytelling slider: Rozhodnutí (příprava před výkonem), Krize (moment kdy tělo říká stop), Druhý dech (pokračování). Sport taby pro běh, cyklistiku, triathlon, silový trénink, kolektivní sporty. PŘED-PŘI-PO logika v produktové sekci.
 
-### Tone
+VO2max kalkulačka na konci LP s VO2 Boost produktem jako kontextuální doporučení vedle ní.
 
-- Direct and instructional
-- Second person ("You are a conversion rate optimization expert")
-- Professional but approachable
+FAQ sekce má 10 otázek s vědeckými zdroji (ACSM, ISSN, Sawka, Jeukendrup, Burke, Hew-Butler, Thomas) připravená pro schema.org FAQPage markup pro GEO citovatelnost AI modely (Perplexity, ChatGPT, Gemini).
 
-### Formatting
+Kreatin sekce v related articles musí být odstraněna a nahrazena endurance tématy od Kuby Prchala (blog content writer).
 
-- Bold (`**text**`) for key terms
-- Code blocks for examples and templates
-- Tables for reference data
-- No excessive emojis
+## Paid media
 
-### Clarity Principles
+Petr je kontakt pro Meta Ads agenturu, jeho kolegyně reálně nastavuje kampaně. Marek opravil několik chybných objective nastavení po předchozím manažerovi.
 
-- Clarity over cleverness
-- Specific over vague
-- Active voice over passive
-- One idea per section
+ThruPlay benchmark v ČR/SK: 0.20 až 0.80 Kč. Aktuální CYB Teaser č.2 dosahuje 0,27 Kč/ThruPlay s 40,62% retencí — výborný výkon. Trh průměr 8 až 15 Kč. Reach objective pro video je špatné nastavení a byl identifikován u Teaseru č.1 (19 Kč/dosah, průměrné zhlédnutí 1 sekunda).
 
-### Description Field Best Practices
+ROAS minimum 4:1 (pokrývá margins plus agency costs), cíl 5-6:1, stretch 8:1.
 
-The `description` is critical for skill discovery. Include:
-1. What the skill does
-2. When to use it (trigger phrases)
-3. Related skills for scope boundaries
+Plán paid media:
 
-```yaml
-description: When the user wants to optimize conversions on any marketing page. Use when the user says "CRO," "conversion rate optimization," "this page isn't converting." For signup flows, see signup-flow-cro.
-```
+Cold dark posty: Advantage+ Audience s light interests Running, Cycling, Trail, Marathon, Triathlon. Geo ČR plus volitelně SK. Věk 18-35. Vyloučení 1stParty Master kompletně. Objective ThruPlay. Frequency cap 2 zobrazení per týden. Budget 500 Kč/den, 14-21 dní.
 
-## Claude Code Plugin
+Boost organických postů: 1stParty Master (web 180 dní + IG/FB engageři 365 dní + customer file). Objective ThruPlay pro video, Engagement pro carousel. Segmentace na 1stParty mínus Video Viewers 75%+ a Video Viewers 25-50%.
 
-This repo also serves as a plugin marketplace. The manifest at `.claude-plugin/marketplace.json` lists all skills for installation via:
+Custom Audiences: 1stParty Master, CYB Video Viewers 75%+, CYB Video Viewers 25-50%, CYB LP visitors 30 dní (po spuštění LP).
 
-```bash
-/plugin marketplace add coreyhaines31/marketingskills
-/plugin install marketing-skills
-```
+## Eventy 2026
 
-See [Claude Code plugins documentation](https://code.claude.com/docs/en/plugins.md) for details.
+Z 22 eventů v plánu Tomáše (event manager) je 7 prioritních pro CYB aktivaci: Ironman Loga Hradec Králové 10. 5., Night Run Brno 16. 5., Night Run Liberec 23. 5., Zlínský filmový půlmaraton 29-31. 5., Blinduro Lipno 8-10. 5. plus Bikefest Červená voda 13-14. 6., Gladiator Race Třebíč 20-21. 6., Ironman Hradec Králové 15-16. 8., Gladiator Race Praha 16-18. (vrchol sezóny).
 
-## Git Workflow
+Aktivace v zónách: recovery point (Isodrinx v pohárku v cíli), photo moment s CYB backdropem, sampling Voltage/Carbosnack před startem a Isodrinx/Regener v cíli, tipovací soutěž s emailem, UGC výzva s hashtag #CatchYourBreath.
 
-### Branch Naming
+Materiály: 1× rollup 100×200 cm s těžkým balastem (PVC 510g, 3-4 tis Kč/kus, 3 ks pro celou sezónu), 1× backdrop 3×2 m, QR kartičky 85×55 mm (oboustranné, mockup hotov, slevový kód CYBEVENT10 platí 14 dní od dnešního dne, tisk 5000 ks univerzálních pro celou sezónu, cena 6-9 tis Kč).
 
-- New skills: `feature/skill-name`
-- Improvements: `fix/skill-name-description`
-- Documentation: `docs/description`
+Slevová logika: CYBEVENT10 = 10 % na endurance sortiment, FOMO 14 dní od vyzvednutí, sběr emailu při uplatnění na e-shopu.
 
-### Commit Messages
+Deadline tisku materiálů: 25. dubna pro Ironman Loga 10. 5.
 
-Follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
+## Influenceři
 
-- `feat: add skill-name skill`
-- `fix: improve clarity in page-cro`
-- `docs: update README`
+8 týmů a sportovců briefovaných Veronikou (sportovní výživářka): Buggyra plus Janík (motorsport, Voltage + Carbosnack), Vítkovice (kolektivní sport, Isodrinx + Regener), Nutrend Specialized team (cyklistika, Isodrinx + Carbosnack), Sigma Olomouc ženy (Regener + Magneslife), Pražské Rugby Tatra (Isodrinx + Magneslife), Atletika Olomouc (Carbosnack + Voltage), Tenisový svaz Sparta Praha (Isodrinx + Magneslife), FBS Olomouc florbal (Regener + Isodrinx).
 
-### Pull Request Checklist
+Brief jednotný: svislé video 9:16, 15-30 sekund, telefon OK, 3 varianty (CYB moment / před výkonem / po výkonu). Hashtagy #CatchYourBreath #Nutrend. Schválení přes Veroniku. Plánuje se code-only tracking — každý influencer dostane vlastní slevový kód (JANIK15, BUGGYRA15) místo affiliate platformy.
 
-- [ ] `name` matches directory name exactly
-- [ ] `name` follows naming rules (lowercase, hyphens, no `--`)
-- [ ] `description` is 1-1024 chars with trigger phrases
-- [ ] `SKILL.md` is under 500 lines
-- [ ] No sensitive data or credentials
+## Tenerife natáčení
 
-## Tool Integrations
+S českou běžkyní (ne tenistka) na soustředění na Tenerife, 5. nebo 6. května. 7pixels.com je vybraná španělská produkční firma s portfoliem Oscar Piastri pro Alpine F1 a Matteo Iachino windsurfing.
 
-This repository includes a tools registry for agent-compatible marketing tools.
+Cena: Video A 15s vertikální 9:16 za 650€, Video B 30-40s vertikální plus horizontální za 1000€, foto session 500€. Celkem 2150€ (přibližně 53 tisíc Kč).
 
-- **Tool discovery**: Read `tools/REGISTRY.md` to see available tools and their capabilities
-- **Integration details**: See `tools/integrations/{tool}.md` for API endpoints, auth, and common operations
-- **MCP-enabled tools**: ga4, stripe, mailchimp, google-ads, resend, zapier, zoominfo, clay, supermetrics, coupler, outreach, crossbeam, introw, composio
-- **Composio** (integration layer): Adds MCP access to OAuth-heavy tools without native MCP servers (HubSpot, Salesforce, Meta Ads, LinkedIn Ads, Google Sheets, Slack, etc.). See `tools/integrations/composio.md`
+Lokace: stadion kde běžkyně trénuje, sunrise timing, hudba a SFX v ceně. Style cinematic, raw, natural light, grain, Matteo Iachino reference.
 
-### Registry Structure
+## Virtuální balíčky
 
-```
-tools/
-├── REGISTRY.md              # Index of all tools with capabilities
-└── integrations/            # Detailed integration guides
-    ├── ga4.md
-    ├── stripe.md
-    ├── rewardful.md
-    └── ...
-```
+Tři balíčky bez custom packaging, virtuální bundle s automatickou slevou v košíku:
 
-### When to Use Tools
+Energy Start Pack "Nastartuj se" — Voltage Energy Bar + Carbosnack Gel tuba + Gutar Energy Shot, cena 95→82 Kč (sleva 14%), pro výkon před, krátké až střední tréninky.
 
-Skills reference relevant tools for implementation. For example:
-- `referral-program` skill → rewardful, tolt, dub-co, mention-me guides
-- `analytics-tracking` skill → ga4, mixpanel, segment guides
-- `email-sequence` skill → customer-io, mailchimp, resend guides
-- `paid-ads` skill → google-ads, meta-ads, linkedin-ads guides
+Endurance Pack "Vydrž déle" — Isodrinx prášek 420g + Endurosnack Gel tuba + Isodrinx Tabs, cena 399→339 Kč (sleva 15%), pro dlouhý vytrvalostní výkon.
 
-For tools without native MCP servers (HubSpot, Salesforce, Meta Ads, LinkedIn Ads, Google Sheets, Slack, Notion), Composio provides MCP access via a single server. See `tools/integrations/composio.md` for setup and `tools/composio/marketing-tools.md` for the full toolkit mapping.
+Recovery Pack "Vrať se zpět" — Regener + Magneslife + Salt Caps, cena 597→505 Kč (sleva 15%), pro regeneraci po výkonu. Spustit až budou Salt Caps skladem.
 
-## Checking for Updates
+Žádné duplicity Isodrinxu napříč balíčky — každý balíček má unikátní složení.
 
-When using any skill from this repository:
+## Merch
 
-1. **Once per session**, on first skill use, check for updates:
-   - Fetch `VERSIONS.md` from GitHub: https://raw.githubusercontent.com/coreyhaines31/marketingskills/main/VERSIONS.md
-   - Compare versions against local skill files
+500 ks Nutrend bidónů s CYB designem (50-80 Kč/kus = 25-40 tis Kč) — dárek za 50 Kč při objednávce CYB sortimentu nad 800 Kč. Motivuje navýšení košíku, měřitelné jako CYB KPI.
 
-2. **Only prompt if meaningful**:
-   - 2 or more skills have updates, OR
-   - Any skill has a major version bump (e.g., 1.x to 2.x)
+200 ks trik s CYB vlaječkou (200-350 Kč/kus = 40-70 tis Kč) — zdarma při košíku nad 1500 Kč CYB.
 
-3. **Non-blocking notification** at end of response:
-   ```
-   ---
-   Skills update available: X marketing skills have updates.
-   Say "update skills" to update automatically, or run `git pull` in your marketingskills folder.
-   ```
+50 kšiltovek pro Run Club exclusive odměny — pro účastníky 3+ Run Club akcí.
 
-4. **If user says "update skills"**:
-   - Run `git pull` in the marketingskills directory
-   - Confirm what was updated
+## Email harmonogram
 
-## Skill Categories
+19 emailů od dubna do prosince. 1. a 3. úterý každého měsíce v 10:00, plus 3 announce emaily (start kampaně 16. 4., LP launch 28. 4., Run Club launch 2. 6.).
 
-See `README.md` for the current list of skills organized by category. When adding new skills, follow the naming patterns of existing skills in that category.
+## Prodejny v retailu
 
-## Claude Code-Specific Enhancements
+11 Nutrend prodejen v ČR. Plakáty A1 schváleny ředitelem prodejen. Banner v Brně (CYB vizuál s Carbosnack tubou) je live. Pravidla nákupních center neumožňují merch před prodejnami ani úpravy výloh kromě bannerů shora.
 
-These patterns are **Claude Code only** and must not be added to `SKILL.md` files directly, as skills are designed to be cross-agent compatible (Codex, Cursor, Windsurf, etc.). Apply them locally in your own project's `.claude/skills/` overrides instead.
+Realistická investice: 1 flagship wow stojan v Olomoucké prodejně (25-60 tis Kč) plus 10 standardních 4-policových stojanů (5-15 tis Kč/kus). Plus shelf talker karty u CYB produktů, sport-specifická komunikace v okně, sampling Isodrinxu o víkendech.
 
-### Dynamic content injection with `!`command``
+## KPI a měření
 
-Claude Code supports embedding shell commands in SKILL.md using `` !`command` `` syntax. When the skill is invoked, Claude Code runs the command and injects the output inline — the model sees the result, not the instruction.
+Finanční výkonnost: ROAS minimum 4:1, cíl 5-6:1, stretch 8:1. PNO srovnání s kreatinovou kampaní (PNO 10%, ROAS 10x — konverzní harvest existing demand) versus CYB (build future demand).
 
-**Most useful application: auto-inject the product marketing context file**
+Brand equity: ThruPlay cost pod 1 Kč, Video Viewers databáze growth, frequency max 3.0, engagement rate organický, profile visits.
 
-Instead of every skill telling the agent "go check if `.agents/product-marketing-context.md` exists and read it," you can inject it automatically:
+Kanálový růst: webový traffic na nutrend.cz/cyb, použití CYBEVENT10 kódu, navýšení AOV po spuštění balíčků, sběr emailů z eventů.
 
-```markdown
-Product context: !`cat .agents/product-marketing-context.md 2>/dev/null || echo "No product context file found — ask the user about their product before proceeding."`
-```
+Reportovací cyklus: týdenní status report pro vedení každý pátek, prosincová prezentace majiteli a vedení s konkrétními daty.
 
-Place this at the top of a skill's body (after frontmatter) to make context available immediately without any file-reading step.
+## Strategické blokátory
 
-**Other useful injections:**
+Marketingová ředitelka odkládá koordinační schůzku 2 týdny, blokuje zarovnání tří souběžných kampaní (CYB, kreatin, další). Tato strukturální blokáda je hlavním problémem rychlosti práce. Marek řeší paralelizací workstreamů které nezávisí na ředitelce — eventy, influenceři, virtuální balíčky, video produkce, prodejny.
 
-```markdown
-# Inject today's date for recency-sensitive skills
-Today's date: !`date +%Y-%m-%d`
+Princip 48 hodin: pokud do dvou dnů ředitelka neodpoví, Marek pokračuje dle navrženého plánu a dokumentuje v emailu jako paper trail.
 
-# Inject current git branch (useful for workflow skills)
-Current branch: !`git branch --show-current 2>/dev/null`
+## Tým a kontakty
 
-# Inject recent commits for context
-Recent commits: !`git log --oneline -5 2>/dev/null`
-```
+Marek Nocar — campaign manager
+Marketingová ředitelka — strategická koordinace, blokátor
+René Jančík — předchozí brand manager, předal kampaň Markovi
+Tomáš — event manager
+Veronika — sportovní výživářka, koordinuje influencery a kontroluje FAQ
+Kuba Prchal — content writer pro blog
+Petr — kontakt pro Meta Ads agenturu
+Václav Malinovský a Denisa Kavková — vendor a stojany do Sportisima
+Simča — bidóny rešerše dodavatelů
+Ředitel prodejen — schválil plakáty A1 do 11 prodejen
+E-commerce ředitel — virtuální balíčky a bidón koncept
+Web vývojář — implementace LP, schema markup, redirect
 
-**Why this is Claude Code-only**: Other agents that load skills will see the literal `` !`command` `` string rather than executing it, which would appear as garbled instructions. Keep cross-agent skill files free of this syntax.
+## Nejbližší priority
+
+1. Prezentace pro majitele a vedení (priorita 1, do středy)
+2. Eventové materiály grafika do 22. 4., tisk do 25. 4. pro Ironman Loga 10. 5.
+3. Schůzka s e-commerce ředitelem (nezávislá na MK ředitelce) — virtuální balíčky a bidón koncept
+4. Schůzka s Veronikou úterý — briefovat 8 influencerů
+5. 7pixels finalizace — schválit obě videa plus foto session, potvrdit datum 5. nebo 6. května
+6. Petr — post plán květen s objective per post a audience segmentací
+7. Salt Caps čekat na sklad pro Recovery Pack
+8. Gutar — ověřit termín redesignu obalu
+9. FAQ ověřit s Veronikou před zveřejněním (zdravotní tvrzení)
+10. Spotify a podcast research, PR outreach do sportovních redakcí, Strava klub aktivace
